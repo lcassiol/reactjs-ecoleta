@@ -1,5 +1,6 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
+import * as Yup from "yup";
 import { FiArrowLeft } from "react-icons/fi";
 
 import { Map, TileLayer, Marker } from "react-leaflet";
@@ -26,6 +27,21 @@ interface IBGECityresponse {
 }
 
 const CreatePoint = () => {
+  let schema = Yup.object().shape({
+    name: Yup.string().required("Nome é um campo obrigatório"),
+    email: Yup.string()
+      .email("Digite um email válido")
+      .required("Email deve estar preenchido"),
+    whatsapp: Yup.string().required("Whatsapp é um campo obrigatório"),
+    city: Yup.string().required("Cidade deve estar preenchida"),
+    uf: Yup.string().required("Uf deve estar preenchido").max(2),
+    latitude: Yup.number().required(),
+    longitude: Yup.number().required(),
+    items: Yup.array()
+      .of(Yup.number())
+      .required("Algum item deve ser selecionado"),
+  });
+
   const history = useHistory();
   const [items, setItems] = useState<ItemProps[]>([]);
   const [ufs, setUFs] = useState<string[]>([]);
@@ -122,6 +138,26 @@ const CreatePoint = () => {
     const [latitude, longitude] = selectedPosition;
     const items = selectedItems;
 
+    try {
+      await schema.validate(
+        {
+          name,
+          email,
+          whatsapp,
+          uf,
+          city,
+          latitude,
+          longitude,
+          items,
+        },
+        { abortEarly: false }
+      );
+    } catch (err) {
+      console.log(err);
+      //TO DO adicionar os erros para aparecerem na pagina
+      return;
+    }
+
     const data = new FormData();
     data.append("name", name);
     data.append("email", email);
@@ -136,7 +172,7 @@ const CreatePoint = () => {
       data.append("image", selectedFile);
     }
 
-    api.post("points", data);
+    await api.post("points", data);
 
     alert("Ponto cadastrado com sucesso");
     history.push("/");
@@ -211,6 +247,7 @@ const CreatePoint = () => {
                 type="text"
                 name="whatsapp"
                 id="whatsapp"
+                maxLength={11}
                 onChange={handleInputChange}
               />
             </div>
