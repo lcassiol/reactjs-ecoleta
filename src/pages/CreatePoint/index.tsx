@@ -1,6 +1,7 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 import { FiArrowLeft } from "react-icons/fi";
 
 import { Map, TileLayer, Marker } from "react-leaflet";
@@ -155,6 +156,9 @@ const CreatePoint = () => {
     } catch (err) {
       console.log(err);
       //TO DO adicionar os erros para aparecerem na pagina
+      toast("Erro no cadastro, verifique os campos digitados", {
+        type: "error",
+      });
       return;
     }
 
@@ -174,7 +178,10 @@ const CreatePoint = () => {
 
     await api.post("points", data);
 
-    alert("Ponto cadastrado com sucesso");
+    toast("Ponto cadastrado com sucesso!", {
+      type: "success",
+    });
+
     history.push("/");
   }
 
