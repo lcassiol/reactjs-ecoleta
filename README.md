@@ -29,7 +29,7 @@ Este projeto faz parte da semana Next Level da Rocketseat, projeto utilizando Ty
 
 --------------------
 
-### Frontend da aplicação
+### Backend da aplicação
 [Backend](https://github.com/lcassiol/nodejs-ecoleta)
 
 ### Aplicação Mobile
