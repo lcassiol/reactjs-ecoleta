@@ -23,3 +23,11 @@ Este projeto faz parte da semana Next Level da Rocketseat, projeto utilizando Ty
 
 - yarn ou npm install
 - yarn start
+
+
+
+### Frontend da aplicação
+[Backend](https://github.com/lcassiol/nodejs-ecoleta)
+
+### Aplicação Mobile
+[Mobile](https://github.com/lcassiol/RN-ecoleta)
