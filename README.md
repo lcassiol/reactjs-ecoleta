@@ -25,6 +25,7 @@ Este projeto faz parte da semana Next Level da Rocketseat, projeto utilizando Ty
 - yarn start
 
 
+--------------------
 
 ### Frontend da aplicação
 [Backend](https://github.com/lcassiol/nodejs-ecoleta)
