@@ -1,6 +1,8 @@
 <h1 align="center">
-    <img alt="Ecoleta logo" src="https://github.com/lcassiol/nodejs-ecoleta/blob/master/src/assets/images/logo.png?raw=true">
+    <img alt="Ecoleta logo" src="https://github.com/lcassiol/reactjs-ecoleta/blob/master/src/assets/screenshots/homeweb.png?raw=true">
 </h1>
+
+
 
 Este projeto faz parte da semana Next Level da Rocketseat, projeto utilizando Typescript
 
