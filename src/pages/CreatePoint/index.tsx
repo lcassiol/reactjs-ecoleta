@@ -44,6 +44,7 @@ const CreatePoint = () => {
   });
 
   const history = useHistory();
+  const [formErrors, setFormErrors] = useState<string[]>([]);
   const [items, setItems] = useState<ItemProps[]>([]);
   const [ufs, setUFs] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
@@ -156,6 +157,16 @@ const CreatePoint = () => {
     } catch (err) {
       console.log(err);
       //TO DO adicionar os erros para aparecerem na pagina
+      if (err instanceof Yup.ValidationError) {
+        const errorMessages: string[] = [];
+
+        err.inner.forEach((error) => {
+          errorMessages[error.path] = error.message;
+        });
+
+        setFormErrors(errorMessages);
+      }
+
       toast("Erro no cadastro, verifique os campos digitados", {
         type: "error",
       });
