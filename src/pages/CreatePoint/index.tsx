@@ -27,6 +27,10 @@ interface IBGECityresponse {
   nome: string;
 }
 
+interface FormErrorsProps {
+  [key: string]: string;
+}
+
 const CreatePoint = () => {
   let schema = Yup.object().shape({
     name: Yup.string().required("Nome é um campo obrigatório"),
@@ -44,7 +48,7 @@ const CreatePoint = () => {
   });
 
   const history = useHistory();
-  const [formErrors, setFormErrors] = useState<string[]>([]);
+  const [formErrors, setFormErrors] = useState<FormErrorsProps>({});
   const [items, setItems] = useState<ItemProps[]>([]);
   const [ufs, setUFs] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
@@ -158,13 +162,16 @@ const CreatePoint = () => {
       console.log(err);
       //TO DO adicionar os erros para aparecerem na pagina
       if (err instanceof Yup.ValidationError) {
-        const errorMessages: string[] = [];
+        const errorMessages: FormErrorsProps = {};
 
         err.inner.forEach((error) => {
           errorMessages[error.path] = error.message;
         });
 
         setFormErrors(errorMessages);
+
+        console.log(errorMessages);
+        console.log(errorMessages["name"]);
       }
 
       toast("Erro no cadastro, verifique os campos digitados", {
